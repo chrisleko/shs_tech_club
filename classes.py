@@ -3,6 +3,7 @@ import pygame.locals
 
 pygame.init()
 
+
 vec = pygame.math.Vector2
 friction = 0.93
 ACC = 0.5
