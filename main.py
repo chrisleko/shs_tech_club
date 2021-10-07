@@ -2,6 +2,7 @@ import classes
 import pygame
 import pygame.locals
 import time
+from sys import exit
 
 pygame.init()
 
@@ -66,8 +67,7 @@ def main():
       time.sleep(0.5)
       reset()
     for event in pygame.event.get():
-      if event.type == pygame.QUIT:
-        quit()
+      if event.type == pygame.QUIT: exit()
     for entity in classes.players:
       entity.update()
     for goal in classes.goals:
@@ -84,7 +84,7 @@ def main():
     for entity in layer2:
       displaySurf.blit(entity.surf, entity.rect)
     if win:
-      displaySurf.blit(fontLarge.render("YOU WIN! \f #win", True, (255, 100, 0)), (width/2, height/2))
+      displaySurf.blit(fontLarge.render("YOU WIN!", True, (255, 100, 0)), (width/2, height/2))
 
     Frames.tick(FPS)
 main()
