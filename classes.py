@@ -142,9 +142,22 @@ class button(pygame.sprite.Sprite):
   def update(self):
     if pygame.sprite.spritecollide(self, players, False):
       self.funct()
-    
-
-
-
-
     self.rect.center = self.pos
+class killzone(pygame.sprite.Sprite):
+    def __init__(self, killfunct , topleft, botright): #note: when assigning killfunct, don't use parenthesis
+        super().__init__()
+        self.surf = pygame.Surface((botright - topleft))
+        self.surf.fill((170,0,240))
+        self.rect = self.surf.get_rect()
+        self.rect.topleft = topleft
+        allSprites.add(self)
+        self.killfunct = killfunct
+        self.counter = 3
+    def update():    
+        if sprite.spritecollide(self, players, False):
+            self.killfunct()
+            self.counter -= 1
+
+
+
+    
