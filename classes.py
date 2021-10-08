@@ -1,37 +1,38 @@
+#---------------------------------File Imports---------------------------------#
 import pygame
 import pygame.locals
-
+#---------------------------------Pygame Initiation---------------------------------#
 pygame.init()
-
-
+#---------------------------------Pygame Settings---------------------------------#
 vec = pygame.math.Vector2
 friction = 0.93
 ACC = 0.5
-player2 = pygame.sprite.Group()
+#---------------------------------Variables---------------------------------#
+#---Players/Sprites---#
 player1 = pygame.sprite.Group()
-buttons = pygame.sprite.Group()
+player2 = pygame.sprite.Group()
 players = pygame.sprite.Group()
-walls = pygame.sprite.Group()
 allSprites = pygame.sprite.Group()
+#---Features/Others---#
+buttons = pygame.sprite.Group()
+walls = pygame.sprite.Group()
 goals = pygame.sprite.Group()
-
-#---------------------------------Player One---------------------------------
-
+#---------------------------------Player One---------------------------------#
 class xplayer(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.surf = pygame.Surface((25, 25))
         self.surf.fill((255, 0, 0))
         self.rect = self.surf.get_rect()
-        self.acc = vec(0, 0)
-        self.vel = vec(0, 0)
-        self.pos = vec(0, 25)
         player1.add(self)
         players.add(self)
         allSprites.add(self)
+        self.acc = vec(0, 0)
+        self.vel = vec(0, 0)
+        self.pos = vec(0, 25)
         self.rect.center = self.pos
         self.oldPos = [self.pos, self.pos, self.pos, self.pos, self.pos]
-#---------------------------------Moving Function for Player One---------------------------------
+#---------------------------------Moving Function for Player One---------------------------------#
     def update(self):
         self.oldPos.append(self.pos)
         self.oldPos = self.oldPos[1:6]
@@ -53,9 +54,7 @@ class xplayer(pygame.sprite.Sprite):
             self.pos = self.oldPos[3]
             self.vel = vec(0, 0)
         self.rect.center = self.pos
-
-#---------------------------------Player Two---------------------------------
-
+#---------------------------------Player Two---------------------------------#
 class yplayer(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -70,7 +69,7 @@ class yplayer(pygame.sprite.Sprite):
         self.pos = vec(25, 0)
         self.rect.center = self.pos
         self.oldPos = [self.pos, self.pos, self.pos, self.pos, self.pos]
-#---------------------------------Moving Function For Player Two---------------------------------
+#---------------------------------Moving Function For Player Two---------------------------------#
     def update(self):
         self.oldPos.append(self.pos)
         self.oldPos = self.oldPos[1:6]
@@ -92,9 +91,7 @@ class yplayer(pygame.sprite.Sprite):
             self.pos = self.oldPos[3]
             self.vel = vec(0, 0)
         self.rect.center = self.pos
-
-#---------------------------------Game Border---------------------------------
-
+#---------------------------------Game Border---------------------------------#
 class wall(pygame.sprite.Sprite):
     def __init__(self, topleft, botright, color=(0, 0, 0), frict=0.93):
         super().__init__()
@@ -104,25 +101,24 @@ class wall(pygame.sprite.Sprite):
         self.rect.topleft = topleft
         allSprites.add(self)
         walls.add(self)
-#---------------------------------Collision Function---------------------------------
+#---------------------------------Collision Function---------------------------------#
     def collide(self):
         pass
-
-
-        #trying to create more stable hitboxes and god
-        # if pygame.sprite.spritecollide(self, players, False) :
-        #   for entity in players:
-        #     if entity.rect.left < self.rect.right and entity.rect.left > self.rect.left and entity.rect.bottom > self.rect.top and entity.rect.top < self.rect.bottom:
-        #       print("colliding")
-        #       if entity.rect.left > self.rect.center :
-        #         entity.rect.left = self.rect.right + 1
-        # if entity.rect.right > self.rect.left and entity.rect.right < self.rect.right:
-        #   entity.rect.right = self.rect.left - 1
-        # if entity.rect.top < self.rect.bottom and entity.rect.top > self.rect.top:
-        #   entity.rect.top = self.rect.bottom + 1
-        # if entity.rect.bottom > self.rect.top and entity.rect.bottom < self.rect.bottom:
-        #   entity.rect.bottom = self.rect.top
-#---------------------------------Goal (OBJ)---------------------------------
+#---Collision Function-Notes---#
+#trying to create more stable hitboxes and god
+# if pygame.sprite.spritecollide(self, players, False) :
+#   for entity in players:
+#     if entity.rect.left < self.rect.right and entity.rect.left > self.rect.left and entity.rect.bottom > self.rect.top and entity.rect.top < self.rect.bottom:
+#       print("colliding")
+#       if entity.rect.left > self.rect.center :
+#         entity.rect.left = self.rect.right + 1
+# if entity.rect.right > self.rect.left and entity.rect.right < self.rect.right:
+#   entity.rect.right = self.rect.left - 1
+# if entity.rect.top < self.rect.bottom and entity.rect.top > self.rect.top:
+#   entity.rect.top = self.rect.bottom + 1
+# if entity.rect.bottom > self.rect.top and entity.rect.bottom < self.rect.bottom:
+#   entity.rect.bottom = self.rect.top
+#---------------------------------Goal (OBJ) Function---------------------------------#
 class goal(pygame.sprite.Sprite):
     def __init__(self, winFunct, Pos=(vec(75, 425))):
         super().__init__()
@@ -131,11 +127,11 @@ class goal(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=Pos)
         self.winFunct = winFunct
         goals.add(self)
-#huh?
+#---------------------------------Collision Update Function---------------------------------#
     def update(self):
         if pygame.sprite.spritecollide(self, players, False):
             self.winFunct()
-#huh?
+#---------------------------------Button Function---------------------------------#
 class button(pygame.sprite.Sprite):
   def __init__(self, buttonfunct, pos = (0, 0)):
     super().__init__()
@@ -145,6 +141,7 @@ class button(pygame.sprite.Sprite):
     self.pos = self.rect.center
     self.funct = buttonfunct
     buttons.add(self)
+#---------------------------------Collision Update Function-2---------------------------------#
   def update(self):
     if pygame.sprite.spritecollide(self, players, False):
       self.funct()
