@@ -19,7 +19,7 @@ vec = pygame.math.Vector2
 #---Players---#
 p1 = classes.xplayer()
 p2 = classes.yplayer()
-p3 = classes.xplayer()
+#p3 = classes.xplayer()
 #---Conditions---#
 win = False
 def lvl1win():
@@ -31,9 +31,9 @@ w2 = classes.wall(vec(0, 0), vec(500, 50))
 w3 = classes.wall(vec(0, 0), vec(50, 500))
 w4 = classes.wall(vec(450, 0), vec(500, 500))
 G1 = classes.goal(lvl1win)
-w5 = classes.wall(vec(120, 20), vec(145, 145))
-w6 = classes.wall(vec(0, 120), vec(145, 145))
-p3.pos = vec(70, 70)
+#w5 = classes.wall(vec(120, 20), vec(145, 145))
+#w6 = classes.wall(vec(0, 120), vec(145, 145))
+#p3.pos = vec(70, 70)
 layer0 = pygame.sprite.Group()
 for goal in classes.goals:
   layer0.add(goal)
